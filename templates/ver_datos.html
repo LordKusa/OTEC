@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>OTEC</title>
+    </head>
+
+    <body>
+        <section class="section">
+            <div class="columns">
+                <div class="column is-1">
+                    <a href="{{url_for('index')}}">
+                        <button class="button is-info">Volver</button>
+                    </a>
+                </div>
+                <div class="column is-four-fifths">
+                    <div class=field>
+                        <form method="post">
+                            <div class="select is-fullwidth">
+                                <select name="lista" onchange="this.form.submit()">
+                                    <option value="" disabled selected>Seleccione una tabla</option>
+                                    {% for elemento in lista %}
+                                        <option value="{{elemento}}">{{elemento}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-1"></div>
+                <div class="column is-four-fifths">
+                    <div class=field>
+                        <div class="table-container">
+                            <table class="table is-bordered is-fullwidth is-striped is-hoverable">
+                                <thead>
+                                    <tr>
+                                        {% for cabeza in cabecera %}
+                                            <th>{{cabeza}}</th>
+                                        {% endfor %}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for dato in datos %}
+                                        <tr>
+                                            {% for atributo in dato %}
+                                                <th>{{atributo}}</th>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+        <title>OTEC</title>
+    </head>
+    <body>
+        <section class="hero is-info">
+            <div class="hero-body">
+                <p class="title">
+                    Observatorio tecnológico
+                </p>
+            </div>
+        </section>
+        <div class="columns is-centered">
+            <div class="column is-four-fifths">
+                <!--<h1 class="title">Observatorio tecnológico</h1>-->
+                <form method="post">
+                    <aside class="menu mt-2 is-size-5">
+                        <p class="menu-label">
+                            General
+                        </p>
+                        <ul class="menu-list">
+                            <li><a href="{{url_for('dashboard')}}">Dashboard</a></li>
+                            <li><a href="{{url_for('ver_datos')}}">Ver datos</a></li>
+                        </ul>
+                        <p class="menu-label">
+                            Cargar datos
+                        </p>
+                        <ul class="menu-list mb-2">
+                            <li><a href="{{url_for('upload')}}">Carga automatica</a></li>
+                            <li><a href="{{url_for('empresa')}}">Cargar datos empresa</a></li>
+                        </ul>
+                    </aside>
+                </form>
+                <a href="{{url_for('logout')}}">Logout</a>
+            </div>
+        </div>
+
+    </body>
+</html>

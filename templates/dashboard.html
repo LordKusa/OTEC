@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+        <title>Dashboard</title>
+    </head>
+    <body>
+        <section class="section">
+            <div class="columns">
+                <div class="column is-1">
+                    <a href="{{url_for('index')}}">
+                        <button class="button is-info is-1">
+                            Volver
+                        </button>
+                    </a>
+                </div>
+                <div class="column is-four-fifths">
+                    <div class="box">
+                        {% for llave in tipo_societario %}
+                            <p>Cantidad de empresas con el tipo societario "{{llave}}": {{tipo_societario[llave]}}</p>
+                        {% endfor %}
+                    </div>
+
+                    <div class="box">
+                        {% for llave in actividad %}
+                            <p>Cantidad de empresas con el código de actividad "{{llave}}": {{actividad[llave]}}</p>
+                        {% endfor %}
+                    </div>
+
+                    <div class="box">
+                        {% for llave in categoria_pyme %}
+                            <p>Cantidad de empresas con la categoría pyme "{{llave}}": {{categoria_pyme[llave]}}</p>
+                        {% endfor %}
+                    </div>    
+                        
+                    <div class="box">
+                        <p>Cantidad de empresas con página web: {{pagina_web}}</p>
+                        <p>Cantidad de empresas con MiPyME local: {{mipyme_local}}</p>
+                        <p>Cantidad de empresas con h   abilitación municipal: {{habilitacion_municipal}}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </body>
+</html>

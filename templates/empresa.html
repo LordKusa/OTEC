@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+
+        <title>OTEC</title>
+    </head>
+    <body>
+        <div class="columns">
+            <div class="column is-one-third is-offset-one-third">
+                <h1 class="is-size-1">Empresa</h1>
+                <form method="post">
+
+                    <div class="field mt-2">
+                        <label class="label">CUIT</label>
+                        <div class="control">
+                            <input class="input" type="text" name="cuit">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Nombre legal</label>
+                        <div class="control">
+                            <input class="input" type="text" name="nombre_legal">
+                        </div>
+                    </div>
+        
+                    <div class="field">
+                        <label class="label">Nombre fantasia</label>
+                        <div class="control">
+                            <input class="input" type="text" name="nombre_fantasia">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Tipo societario</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="tipo_societario">
+                                    {% for tipo in tipos %}
+                                        <option value="{{tipo}}">{{tipo}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Página web</label>
+                        <div class="control">
+                            <input class="input" type="text" name="pagina_web">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Rubro</label>
+                        <div class="control">
+                            <input class="input" type="text" name="rubro">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Actividad primaria</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="actividad_primaria">
+                                    {% for actividad in actividades %}
+                                        <option value="{{actividad}}">{{actividad}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Actividad secundaria</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="actividad_secundaria">
+                                    {% for actividad in actividades %}
+                                        <option value="{{actividad}}">{{actividad}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">MiPyME local</label>
+                        <div class="control">
+                            <label class="radio">
+                                <input type="radio" name="mipyme_local" value="Si">
+                                Si
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="mipyme_local" value="No">
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Categoria PyME</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="categoria_pyme">
+                                    {% for categoria in categorias %}
+                                        <option value="{{categoria}}">{{categoria}}</option>
+                                    {% endfor %}
+                                </select>   
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Habilitación municipal</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="habilitacion_municipal">
+                                    {% for habilitacion in habilitaciones %}
+                                        <option value="{{habilitacion}}">{{habilitacion}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="button is-link is-fullwidth" type="submit">Cargar</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

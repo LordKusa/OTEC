@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+
+</head>
+
+<body>
+    <section class="section">
+        <div class="columns">
+            <div class="column is-one-third is-offset-one-third">
+                <h1 class="is-size-1">Bienvenido</h1>
+                <form method="post">
+                    <label for="username">Usuario</label>
+                    <div class="control">
+                        <input autofocus required type="text" class="input" name="username" id="username">
+                    </div>
+
+                    <label for="clave">Contraseña</label>
+                    <div class="control">
+                        <input autofocus required type="password" class="input" name="clave" id="clave">
+                    </div>
+
+                    <button class="button is-success is-fullwidth mt-2" type="submit">Entrar</button>
+
+                    {% with mensajes_flash = get_flashed_messages() %}
+                        {% if mensajes_flash %}
+                            {% if mensajes_flash[0] == 'Deslogueado con éxito' %}
+                                <div class="notification is-success mt-2">
+                                    <li>{{ mensajes_flash[0] }}</li>
+                                </div>
+                            {% else %}
+                                <div class="notification is-danger mt-2">
+                                    <li>{{ mensajes_flash[0] }}</li>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    {% endwith %}   
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
