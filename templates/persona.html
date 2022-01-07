@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+
+        <title>OTEC</title>
+    </head>
+    <body>
+        <div class="columns">
+            <div class="column is-one-third is-offset-one-third">
+                {% if mod %} <h1 class="is-size-1">Modificar empresa</h1> {% else %} <h1 class="is-size-1">Cargar persona</h1> {% endif %}
+                <form method="post">
+                    {% if mod %}
+                        <div class="field mt-2">
+                            <label class="label">ID Empresa</label>
+                            <div class="control">
+                                <input class="input" type="text" name="id_empresa">
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="field mt-2">
+                        <label class="label">ID Empresa</label>
+                        <div class="control">
+                            <input class="input" type="text" name="id_empresa">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Nombre</label>
+                        <div class="control">
+                            <input class="input" type="text" name="nombre">
+                        </div>
+                    </div>
+        
+                    <div class="field">
+                        <label class="label">Teléfono fijo</label>
+                        <div class="control">
+                            <input class="input" type="text" name="telefono_fijo">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Teléfono celular</label>
+                        <div class="control">
+                            <input class="input" type="text" name="telefono_celular">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Mail</label>
+                        <div class="control">
+                            <input class="input" type="text" name="mail">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Tipo relación</label>
+                        <div class="control">
+                            <input class="input" type="text" name="tipo_relacion">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Observaciones</label>
+                        <div class="control">
+                            <textarea name="observaciones" class="textarea"></textarea>
+                        </div>
+                    </div>
+
+                    <button class="button is-link is-fullwidth" type="submit">Cargar</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

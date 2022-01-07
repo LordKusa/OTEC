@@ -2,6 +2,9 @@ from flask import Flask, render_template, session, url_for, request, redirect, f
 import os
 from dao.clae import ClaeDAO
 from dao.usuario import UsuarioDAO
+from dao.empresa import EmpresaDAO
+from dao.planta import PlantaDAO
+from dao.personas import PersonaDAO
 from mostrar_datos import *
 
 METHODS = ['GET', 'POST']
@@ -68,10 +71,40 @@ def empresa():
             if actividad2 == i[1]:
                 dic['actividad_secundaria'] = i[0]
 
-        # EmpresaDAO.insertar(dic)
-        print(dic)
+        EmpresaDAO.insertar(dic)
 
-    return render_template('empresa.html', tipos=tipos, actividades=actividades, categorias=categorias, habilitaciones=habilitaciones)
+    return render_template('empresa.html', mod=False, tipos=tipos, actividades=actividades, categorias=categorias, habilitaciones=habilitaciones)
+
+@app.route('/modificar/empresa', methods=METHODS)
+def modificar_empresa():
+    clae = ClaeDAO.seleccionar()
+    tipos = ['Sociedades Comerciales', 'Sociedad colectiva', 'Sociedad en Comandita Simple', 'Sociedad de Capital e Industria', 'Sociedad de Responsabilidad Limitada', 'Sociedad Anónima', 
+             'Sociedad Anónima con Participación', 'Sociedad Anónima con Participación Estatal Mayoritaria', 'Sociedad en Comandita por Acciones', 'Sociedad Unipersonal', 
+             'Sociedades de constitución no regular', 'Sociedades de Hecho', 'Sociedades Irregulares']
+    actividades = []
+    categorias = ['Micro', 'Pequeña', 'Mediana tramo 1', 'Mediana tramo 2']
+    habilitaciones = ['Si', 'En trámite', 'Precaria', 'Definitiva', 'HSM', 'PUP', 'Otros']
+
+    for i in clae:
+        actividades.append(i[1])
+
+    return render_template('empresa.html', mod=True, tipos=tipos, actividades=actividades, categorias=categorias, habilitaciones=habilitaciones)
+
+@app.route('/planta', methods=METHODS)
+def planta():
+    if request.method == 'POST':
+        dic = request.form.to_dict()
+        PlantaDAO.insertar(dic)
+
+    return render_template('planta.html')
+
+@app.route('/persona', methods=METHODS)
+def persona():
+    if request.method == 'POST':
+        dic = request.form.to_dict()
+        PersonaDAO.insertar(dic)
+
+    return render_template('persona.html')
 
 @app.route('/upload', methods=METHODS)
 def upload():
@@ -84,21 +117,33 @@ def upload():
 
 @app.route('/ver_datos', methods=METHODS)
 def ver_datos():
-    lista = ['Empresas', 'Plantas', 'Relevamiento de plantas']
-    cabecera, datos = cargar_empresas()
+    lista = ['Empresas', 'Plantas', 'Relevamiento de plantas', 'Personas']
+    cabecera, datos, tabla = cargar_empresas()
 
     if request.method == 'POST':
-        if 'Plantas' == request.form['lista']:
-            cabecera, datos = cargar_plantas()
-        elif 'Relevamiento de plantas' == request.form['lista']:
-            cabecera, datos = cargar_relevamiento_planta()
-    return render_template('ver_datos.html', lista=lista, cabecera=cabecera, datos=datos)
+        if 'mostrar' == request.form['identificador']:
+            if 'Plantas' == request.form['lista']:
+                cabecera, datos, tabla = cargar_plantas()
+            elif 'Relevamiento de plantas' == request.form['lista']:
+                cabecera, datos = cargar_relevamiento_planta()
+            elif 'Personas' == request.form['lista']:
+                cabecera, datos, tabla =  cargar_personas()
+
+        else:
+            if 'tabla_empresa' == request.form['tipotabla']:
+                cabecera, datos, tabla = cargar_empresas(request.form['lista'], request.form['texto'])
+            elif 'tabla_plantas' == request.form['tipotabla']:
+                cabecera, datos, tabla = cargar_plantas(request.form['lista'], request.form['texto'])
+            elif 'tabla_persona' == request.form['tipotabla']:
+                cabecera, datos, tabla = cargar_plantas(request.form['lista'], request.form['texto'])
+              
+    return render_template('ver_datos.html', lista=lista, cabecera=cabecera, datos=datos, tabla=tabla)
 
 @app.route('/dashboard')
 def dashboard():
     tipo_societario = {}
     pagina_web = 0
-    actividad = {}
+    rubro = {}
     mipyme_local = 0
     categoria_pyme = {}
     habilitacion_municipal = 0
@@ -110,28 +155,42 @@ def dashboard():
         else:
             tipo_societario[elemento[0]] += 1
         
-        if elemento[1] != '':
+        if elemento[1] != '' and not(elemento[1] in 'no tiene') and not(elemento[1] in 'No tiene') and elemento[1] != '0':
             pagina_web += 1
 
-        for i in range(2, 4):
-            if actividad.get(elemento[i]) == None:
-                actividad[elemento[i]] = 1
-            else:
-                actividad[elemento[i]] += 1
+        if rubro.get(elemento[2]) == None:
+            rubro[elemento[2]] = 1
+        else:
+            rubro[elemento[2]] += 1
 
-        if elemento[4] == 'Si':
+        if elemento[3] == 'Si':
             mipyme_local += 1
 
-        if categoria_pyme.get(elemento[5]) == None:
-            categoria_pyme[elemento[5]] = 1
+        if categoria_pyme.get(elemento[4]) == None:
+            categoria_pyme[elemento[4]] = 1
         else:
-            categoria_pyme[elemento[5]] += 1
+            categoria_pyme[elemento[4]] += 1
 
-        if elemento[6] == 'Si':
+        if elemento[5] == 'Si':
             habilitacion_municipal += 1
 
-    return render_template('dashboard.html', tipo_societario=tipo_societario, pagina_web=pagina_web, actividad=actividad, mipyme_local=mipyme_local, 
+    return render_template('dashboard.html', tipo_societario=tipo_societario, pagina_web=pagina_web, actividad=rubro, mipyme_local=mipyme_local, 
                             categoria_pyme=categoria_pyme, habilitacion_municipal=habilitacion_municipal)
+
+@app.route('/buscar', methods=METHODS)
+def buscar():
+    html = render_template('buscar.html')
+    if request.method == 'POST':
+        html = redirect(url_for('resultado', tabla='cuit', id=request.form['cuit']))
+    return html
+
+@app.route('/buscar/<tabla>/<id>')
+def resultado(tabla, id):
+    empresa = EmpresaDAO.seleccionar_uno((tabla, id))
+    empresa = empresa[0]
+    plantas = PlantaDAO.seleccionar_uno(('id_empresa', empresa[0]))
+
+    return render_template('datos_empresa.html', empresa=empresa, plantas=plantas)
 
 @app.before_request
 def antes_de_cada_peticion():

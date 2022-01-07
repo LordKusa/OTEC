@@ -10,8 +10,16 @@
     <body>
         <div class="columns">
             <div class="column is-one-third is-offset-one-third">
-                <h1 class="is-size-1">Empresa</h1>
+                {% if mod %} <h1 class="is-size-1">Modificar empresa</h1> {% else %} <h1 class="is-size-1">Cargar empresa</h1> {% endif %}
                 <form method="post">
+                    {% if mod %}
+                        <div class="field mt-2">
+                            <label class="label">ID Empresa</label>
+                            <div class="control">
+                                <input class="input" type="text" name="id_empresa">
+                            </div>
+                        </div>
+                    {% endif %}
 
                     <div class="field mt-2">
                         <label class="label">CUIT</label>

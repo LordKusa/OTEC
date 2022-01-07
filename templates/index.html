@@ -19,13 +19,14 @@
             <div class="column is-four-fifths">
                 <!--<h1 class="title">Observatorio tecnológico</h1>-->
                 <form method="post">
-                    <aside class="menu mt-2 is-size-5">
+                    <aside class="menu mt-3 is-size-4">
                         <p class="menu-label">
                             General
                         </p>
                         <ul class="menu-list">
                             <li><a href="{{url_for('dashboard')}}">Dashboard</a></li>
                             <li><a href="{{url_for('ver_datos')}}">Ver datos</a></li>
+                            <li><a href="{{url_for('buscar')}}">Buscar empresa</a></li>
                         </ul>
                         <p class="menu-label">
                             Cargar datos
@@ -33,7 +34,15 @@
                         <ul class="menu-list mb-2">
                             <li><a href="{{url_for('upload')}}">Carga automatica</a></li>
                             <li><a href="{{url_for('empresa')}}">Cargar datos empresa</a></li>
-                        </ul>
+                            <li><a href="{{url_for('planta')}}">Cargar datos planta</a></li>
+                            <li><a href="{{url_for('persona')}}">Cargar datos persona</a></li>
+                        </ul><!--
+                        <p class="menu-label">
+                            Modificar datos
+                        </p>
+                        <ul class="menu-list mb-2">
+                            <li><a href="{{url_for('modificar_empresa')}}">Modificar datos empresa</a></li></li>
+                        </ul>-->
                     </aside>
                 </form>
                 <a href="{{url_for('logout')}}">Logout</a>

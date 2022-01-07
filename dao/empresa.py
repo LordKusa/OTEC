@@ -1,10 +1,10 @@
 from cursor_del_pool import CursorDelPool
 
 class EmpresaDAO:
-    _seleccionar = 'SELECT * FROM empresa ORDER BY cuit'
+    _seleccionar = 'SELECT * FROM empresa'
+    _seleccionar_uno = 'SELECT * FROM empresa WHERE'
     _insertar = 'INSERT INTO empresa(cuit, nombre_legal, nombre_fantasia, tipo_societario, pagina_web, rubro, actividad_primaria, actividad_secundaria, mipyme_local, categoria_pyme, habilitacion_municipal) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
-    _ultimo = 'SELECT * FROM empresa ORDER BY id_empresa DESC LIMIT 1'
-    _dashboard = 'SELECT tipo_societario, pagina_web, actividad_primaria, actividad_secundaria, mipyme_local, categoria_pyme, habilitacion_municipal FROM empresa'
+    _dashboard = 'SELECT tipo_societario, pagina_web, rubro, mipyme_local, categoria_pyme, habilitacion_municipal FROM empresa'
     # _actualizar = 'UPDATE empresa SET'
 
     @classmethod
@@ -21,13 +21,21 @@ class EmpresaDAO:
             return empresas
 
     @classmethod
-    def ultimo(cls):
+    def seleccionar_uno(cls, valores):
         with CursorDelPool() as cursor:
-            cursor.execute(cls._ultimo)
+            query = f'{cls._seleccionar_uno} {valores[0]} = \'{valores[1]}\''
+            cursor.execute(query)
             registros = cursor.fetchall()
-            for registro in registros:
-                id = registro[0]
-            return id
+            if cursor.rowcount != 1:
+                empresas = []
+                for registro in registros:
+                    empresa = []
+                    for i in range(12):
+                        empresa.append(registro[i])
+                    empresas.append(empresa)
+            else:
+                empresas = list(registros)
+            return empresas
 
     @classmethod
     def dashboard(cls):
@@ -37,7 +45,7 @@ class EmpresaDAO:
             empresas = []
             for registro in registros:
                 empresa = []
-                for i in range(7):
+                for i in range(6):
                     empresa.append(registro[i])
                 empresas.append(empresa)
             return empresas
@@ -45,19 +53,13 @@ class EmpresaDAO:
     @classmethod
     def insertar(cls, empresa):
         with CursorDelPool() as cursor:
-            valores = (
-                empresa['cuit'], 
-                empresa['nombre_legal'], 
-                empresa['nombre_fantasia'], 
-                empresa['tipo_societario'], 
-                empresa['pagina_web'], 
-                empresa['rubro'], 
-                empresa['actividad_primaria'], 
-                empresa['actividad_secundaria'], 
-                empresa['mipyme_local'], 
-                empresa['categoria_pyme'],
-                empresa['habilitacion_municipal']
-            )
+            if type(empresa) == dict:
+                valores = []
+                for clave in empresa:
+                    valores.append(empresa[clave])
+            elif type(empresa) == list:
+                valores = empresa
+            valores = tuple(valores)
             cursor.execute(cls._insertar, valores)
 
     # @classmethod
@@ -79,4 +81,4 @@ class EmpresaDAO:
     #         cursor.execute(cls._actualizar, valores)
 
 if __name__ == '__main__':
-    print(EmpresaDAO.ultimo())
+    print(EmpresaDAO.seleccionar())

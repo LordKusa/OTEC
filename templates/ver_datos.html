@@ -18,6 +18,7 @@
                 <div class="column is-four-fifths">
                     <div class=field>
                         <form method="post">
+                            <input type="hidden" name="identificador" value="mostrar">
                             <div class="select is-fullwidth">
                                 <select name="lista" onchange="this.form.submit()">
                                     <option value="" disabled selected>Seleccione una tabla</option>
@@ -45,16 +46,55 @@
                                 </thead>
                                 <tbody>
                                     {% for dato in datos %}
-                                        <tr>
-                                            {% for atributo in dato %}
-                                                <th>{{atributo}}</th>
-                                            {% endfor %}
-                                        </tr>
+                                        {% if datos[0] is iterable %}
+                                            <tr>
+                                                {% for atributo in dato %}
+                                                    {% if cabecera[0] == 'ID Empresa' %}
+                                                        {% if atributo == dato[0] %}
+                                                            <th><a href="{{url_for('resultado', tabla='id_empresa', id=atributo)}}">{{atributo}}</a></th>
+                                                        {% else %}
+                                                            <th>{{atributo}}</th>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        {% if atributo == dato[1] %}
+                                                            <th><a href="{{url_for('resultado', tabla='id_empresa',  id=atributo)}}">{{atributo}}</a></th>
+                                                        {% else %}
+                                                            <th>{{atributo}}</th>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </tr>
+                                        {% else %}
+                                            <th>{{dato}}</th>
+                                        {% endif %}
                                     {% endfor %}
+ 
                                 </tbody>
                             </table>
                         </div>
                     </div>
+
+                    <form method="post">
+                        <input type="hidden" name="identificador" value="buscar">
+                        <input type="hidden" name="tipotabla" value="{{tabla}}">
+                        <div class="field has-addons">
+                            <p class="control">
+                                <span class="select">
+                                    <select name="lista">
+                                        {% for cabeza in cabecera %}
+                                            <option value="{{cabeza}}">{{cabeza}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </span>
+                            </p>
+                            <p class="control is-expanded">
+                                <input type="text" class="input" name="texto">
+                            </p>
+                            <p class="control">
+                                <button class="button">Buscar</button>
+                            </p>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>

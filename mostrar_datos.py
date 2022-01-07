@@ -1,8 +1,9 @@
 from dao.empresa import EmpresaDAO
 from dao.planta import PlantaDAO
 from dao.relevamiento_planta import RelevamientoPlantaDAO
+from dao.personas import PersonaDAO
 
-def cargar_empresas():
+def cargar_empresas(campo = '', valor = ''):
 
     cabecera = [
         'ID Empresa', 
@@ -19,11 +20,33 @@ def cargar_empresas():
         'Habilitación municipal'
     ]
 
-    datos = EmpresaDAO.seleccionar()
+    if campo == '':
+        datos = EmpresaDAO.seleccionar()
+    else:
+        atributos = [
+            'id_empresa',
+            'cuit',
+            'nombre_legal',
+            'nombre_fantasia',
+            'tipo_societario',
+            'pagina_web',
+            'rubro',
+            'actividad_primaria',
+            'actividad_secundaria',
+            'mipyme_local',
+            'categoria_pyme',
+            'habilitacion_municipal'
+        ]
 
-    return cabecera, datos
+        indice = cabecera.index(campo)
+        campo = atributos[indice]
 
-def cargar_plantas():
+        datos = EmpresaDAO.seleccionar_uno((campo, valor))
+        datos = list(datos)
+
+    return cabecera, datos, 'tabla_empresa'
+
+def cargar_plantas(campo = '', valor = ''):
     cabecera = [
         'ID Planta',
         'ID Empresa',
@@ -52,9 +75,44 @@ def cargar_plantas():
         'GPS North'
     ]
 
-    datos = PlantaDAO.seleccionar()
+    if campo == '':
+        datos = PlantaDAO.seleccionar()
+    else:
+        atributos = [
+            'id_planta',
+            'id_empresa',
+            'nombre',
+            'certificado_aa_opds',
+            'categoria_caa',
+            'puntaje',
+            'potencia_electrica',
+            'normas_certificadas',
+            'dl_calle',
+            'dl_numero',
+            'dl_localidad',
+            'dl_cp',
+            'da_calle',
+            'da_numero',
+            'da_localidad',
+            'da_cp',
+            'dp_calle',
+            'dp_numero',
+            'dp_localidad',
+            'dp_cp',
+            'telefono',
+            'email',
+            'pagina_web',
+            'gps_west',
+            'gps_north'
+        ]
 
-    return cabecera, datos
+        indice = cabecera.index(campo)
+        campo = atributos[indice]
+
+        datos = PlantaDAO.seleccionar_uno((campo, valor))
+        datos = list(datos)
+
+    return cabecera, datos, 'tabla_plantas'
 
 def cargar_relevamiento_planta():
     cabecera = [
@@ -72,3 +130,41 @@ def cargar_relevamiento_planta():
     datos = RelevamientoPlantaDAO.seleccionar()
 
     return cabecera, datos
+
+def cargar_personas(campo = '', valor = ''):
+
+    cabecera = [
+        'ID Persona', 
+        'ID Empresa', 
+        'Nombre', 
+        'Teléfono fijo', 
+        'Teléfono celular', 
+        'Mail', 
+        'Tipo relación',
+        'Observaciones'
+    ]
+
+    if campo == '':
+        datos = PersonaDAO.seleccionar()
+    else:
+        atributos = [
+            'id_persona',
+            'id_empresa',
+            'nombre',
+            'telefono_fijo',
+            'telefono_celular',
+            'mail',
+            'tipo_relacion',
+            'observaciones'
+        ]
+
+        indice = cabecera.index(campo)
+        campo = atributos[indice]
+
+        datos = PersonaDAO.seleccionar_uno((campo, valor))
+        datos = list(datos)
+
+    return cabecera, datos, 'tabla_persona'
+
+if __name__ == '__main__':
+    pass

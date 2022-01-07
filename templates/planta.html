@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+
+        <title>OTEC</title>
+    </head>
+    <body>
+        <div class="columns">
+            <div class="column is-one-third is-offset-one-third">
+                <h1 class="is-size-1">Planta</h1>
+                <form method="post">
+                    <div class="field mt-2">
+                        <label class="label">ID Empresa</label>
+                        <div class="control">
+                            <input class="input" type="text" name="id_empresa">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Nombre</label>
+                        <div class="control">
+                            <input class="input" type="text" name="nombre">
+                        </div>
+                    </div>                    
+
+                    <div class="field">
+                        <label class="label">Certificación AA - OPDS</label>
+                        <div class="control">
+                            <label class="radio">
+                                <input type="radio" name="certificacion_aa_opds">
+                                Si
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="certificacion_aa_opds">
+                                No
+                            </label>
+                        </div>
+                    </div>
+        
+                    <div class="field">
+                        <label class="label">Categoría CAA</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="categoria_caa">
+                                    <option value="1ra">1ra</option>
+                                    <option value="2da">2da</option>
+                                    <option value="3ra">3ra</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Puntaje</label>
+                        <div class="control">
+                            <input class="input" type="text" name="puntaje">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Potencia eléctrica contratada (KW)</label>
+                        <div class="control">
+                            <input class="input" type="text" name="potencia_electrica">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Normas y estándares certificados</label>
+                        <div class="control">
+                            <input class="input" type="text" name="normas_certificadas">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección legal - Calle</label>
+                        <div class="control">
+                            <input class="input" type="text" name="dl_calle">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección legal - Número</label>
+                        <div class="control">
+                            <input class="input" type="text" name="dl_numero">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección legal - Código postal</label>
+                        <div class="control">
+                            <input class="input" type="text" name="dl_cp">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección administrativa - Calle</label>
+                        <div class="control">
+                            <input class="input" type="text" name="da_calle">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección administrativa - Número</label>
+                        <div class="control">
+                            <input class="input" type="text" name="da_numero">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección administrativa - Localidad</label>
+                        <div class="control">
+                            <input class="input" type="text" name="da_localidad">
+                        </div>
+                    </div>
+                
+                    <div class="field">
+                        <label class="label">Dirección administrativa - Código postal</label>
+                        <div class="control">
+                            <input class="input" type="text" name="da_cp">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección productiva - Calle</label>
+                        <div class="control">
+                            <input class="input" type="text" name="dp_calle">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección productiva - Número</label>
+                        <div class="control">
+                            <input class="input" type="text" name="dp_numero">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección productiva - Localidad</label>
+                        <div class="control">
+                            <input class="input" type="text" name="dp_localidad">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección productiva - Código postal</label>
+                        <div class="control">
+                            <input class="input" type="text" name="dp_cp">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Teléfono</label>
+                        <div class="control">
+                            <input class="input" type="text" name="telefono">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Email</label>
+                        <div class="control">
+                            <input class="input" type="text" name="email">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Página web</label>
+                        <div class="control">
+                            <input class="input" type="text" name="web">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">GPS West</label>
+                        <div class="control">
+                            <input class="input" type="text" name="gps_west">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">GPS North</label>
+                        <div class="control">
+                            <input class="input" type="text" name="gps_north">
+                        </div>
+                    </div>
+
+                    <button class="button is-link is-fullwidth" type="submit">Cargar</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
