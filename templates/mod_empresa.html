@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+
+        <title>OTEC</title>
+    </head>
+    <body>
+        <div class="columns">
+            <div class="column is-one-third is-offset-one-third">
+                {% if mod %} <h1 class="is-size-1">Modificar empresa</h1> {% else %} <h1 class="is-size-1">Cargar empresa</h1> {% endif %}
+                <form method="post">
+                    {% if mod %}
+                        <div class="field mt-2">
+                            <label class="label">ID Empresa</label>
+                            <div class="control">
+                                <input class="input" type="text" name="id_empresa" value={{empresa[0]}} readonly>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="field mt-2">
+                        <label class="label">CUIT</label>
+                        <div class="control">
+                            <input class="input" type="text" name="cuit" value="{{empresa[1]}}">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Nombre legal</label>
+                        <div class="control">
+                            <input class="input" type="text" name="nombre_legal" value="{{empresa[2]}}">
+                        </div>
+                    </div>
+        
+                    <div class="field">
+                        <label class="label">Nombre fantasia</label>
+                        <div class="control">
+                            <input class="input" type="text" name="nombre_fantasia" value="{{empresa[3]}}">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Tipo societario</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="tipo_societario">
+                                    {% for tipo in tipos %}
+                                        {% if tipo.lower() == empresa[4].lower() %}
+                                            <option value="{{tipo}}" selected="selected">{{tipo}}</option>
+                                        {% else %}
+                                            <option value="{{tipo}}">{{tipo}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Página web</label>
+                        <div class="control">
+                            <input class="input" type="text" name="pagina_web" value="{{empresa[5]}}">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Rubro</label>
+                        <div class="control">
+                            <input class="input" type="text" name="rubro" value="{{empresa[6]}}">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Actividad primaria</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="actividad_primaria">
+                                    {% for actividad in actividades %}
+                                        <option value="{{actividad}}">{{actividad}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Actividad secundaria</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="actividad_secundaria">
+                                    {% for actividad in actividades %}
+                                        <option value="{{actividad}}">{{actividad}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">MiPyME local</label>
+                        <div class="control">
+                            <label class="radio">
+                                {% if empresa[9].lower() == 'si' %}
+                                    <input type="radio" name="mipyme_local" value="Si" checked="checked">
+                                {% else %}
+                                    <input type="radio" name="mipyme_local" value="Si">
+                                {% endif %}
+                                Si
+                            </label>
+                            <label class="radio">
+                                {% if empresa[9].lower() != 'si' %}
+                                    <input type="radio" name="mipyme_local" value="No" checked="checked">
+                                {% else %}
+                                    <input type="radio" name="mipyme_local" value="No">
+                                {% endif %}
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Categoria PyME</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="categoria_pyme">
+                                    {% for categoria in categorias %}
+                                        <option value="{{categoria}}">{{categoria}}</option>
+                                    {% endfor %}
+                                </select>   
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Habilitación municipal</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="habilitacion_municipal">
+                                    {% for habilitacion in habilitaciones %}
+                                        <option value="{{habilitacion}}">{{habilitacion}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="button is-link is-fullwidth" type="submit">Cargar</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

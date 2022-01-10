@@ -12,6 +12,7 @@ METHODS = ['GET', 'POST']
 app = Flask(__name__)
 app.secret_key = b'test'
 app.config['UPLOAD_FOLDER'] = os.path.abspath('./uploads/')
+app.jinja_env.add_extension('jinja2.ext.do')
 
 @app.route('/', methods=METHODS)
 def index():
@@ -48,12 +49,14 @@ def logout():
 @app.route('/empresa', methods=METHODS)
 def empresa():
     clae = ClaeDAO.seleccionar()
-    tipos = ['Sociedades Comerciales', 'Sociedad colectiva', 'Sociedad en Comandita Simple', 'Sociedad de Capital e Industria', 'Sociedad de Responsabilidad Limitada', 'Sociedad Anónima', 
-             'Sociedad Anónima con Participación', 'Sociedad Anónima con Participación Estatal Mayoritaria', 'Sociedad en Comandita por Acciones', 'Sociedad Unipersonal', 
-             'Sociedades de constitución no regular', 'Sociedades de Hecho', 'Sociedades Irregulares']
+    tipos = ['Sociedades Comerciales', 'Sociedad colectiva', 'Sociedad en Comandita Simple', 'Sociedad de Capital e Industria', 
+             'Sociedad de Responsabilidad Limitada', 'Sociedad Anónima', 'Sociedad Anónima con Participación', 'Sociedad Anónima con Participación Estatal Mayoritaria', 
+             'Sociedad en Comandita por Acciones', 'Sociedad Unipersonal', 'Sociedades de constitución no regular', 'Sociedades de Hecho', 
+             'Sociedades Irregulares']
     actividades = []
     categorias = ['Micro', 'Pequeña', 'Mediana tramo 1', 'Mediana tramo 2']
-    habilitaciones = ['Si', 'En trámite', 'Precaria', 'Definitiva', 'HSM', 'PUP', 'Otros']
+    habilitaciones = ['Si', 'En trámite', 'Precaria', 'Definitiva', 
+                      'HSM', 'PUP', 'Otros']
 
     for i in clae:
         actividades.append(i[1])
@@ -75,12 +78,12 @@ def empresa():
 
     return render_template('empresa.html', mod=False, tipos=tipos, actividades=actividades, categorias=categorias, habilitaciones=habilitaciones)
 
-@app.route('/modificar/empresa', methods=METHODS)
-def modificar_empresa():
+@app.route('/modificar/empresa/<id>', methods=METHODS)
+def modificar_empresa(id):
     clae = ClaeDAO.seleccionar()
     tipos = ['Sociedades Comerciales', 'Sociedad colectiva', 'Sociedad en Comandita Simple', 'Sociedad de Capital e Industria', 'Sociedad de Responsabilidad Limitada', 'Sociedad Anónima', 
              'Sociedad Anónima con Participación', 'Sociedad Anónima con Participación Estatal Mayoritaria', 'Sociedad en Comandita por Acciones', 'Sociedad Unipersonal', 
-             'Sociedades de constitución no regular', 'Sociedades de Hecho', 'Sociedades Irregulares']
+             'Sociedades de constitución no regular', 'Sociedad de Hecho', 'Sociedades Irregulares', 'Monotributo']
     actividades = []
     categorias = ['Micro', 'Pequeña', 'Mediana tramo 1', 'Mediana tramo 2']
     habilitaciones = ['Si', 'En trámite', 'Precaria', 'Definitiva', 'HSM', 'PUP', 'Otros']
@@ -88,7 +91,10 @@ def modificar_empresa():
     for i in clae:
         actividades.append(i[1])
 
-    return render_template('empresa.html', mod=True, tipos=tipos, actividades=actividades, categorias=categorias, habilitaciones=habilitaciones)
+    empresa = list(EmpresaDAO.seleccionar_uno(('id_empresa', id))[0])
+    print(empresa[6])
+
+    return render_template('mod_empresa.html', mod=True, tipos=tipos, actividades=actividades, categorias=categorias, habilitaciones=habilitaciones, empresa=empresa)
 
 @app.route('/planta', methods=METHODS)
 def planta():
