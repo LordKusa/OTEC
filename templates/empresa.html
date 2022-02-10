@@ -83,15 +83,97 @@
                     </div>
 
                     <div class="field">
-                        <label class="label">Actividad secundaria</label>
+                        <label class="label">Actividad secundaria uno</label>
                         <div class="control">
                             <div class="select is-fullwidth">
-                                <select name="actividad_secundaria">
+                                <select name="actividad_secundaria_uno">
                                     {% for actividad in actividades %}
                                         <option value="{{actividad}}">{{actividad}}</option>
                                     {% endfor %}
                                 </select>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Actividad secundaria dos</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="actividad_secundaria_dos">
+                                    {% for actividad in actividades %}
+                                        <option value="{{actividad}}">{{actividad}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Actividad secundaria tres</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="actividad_secundaria_tres">
+                                    {% for actividad in actividades %}
+                                        <option value="{{actividad}}">{{actividad}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección legal - Calle</label>
+                        <div class="control">
+                            <input class="input" type="text" name="dl_calle">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección legal - Número</label>
+                        <div class="control">
+                            <input class="input" type="text" name="dl_numero">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección administrativa - Localidad</label>
+                        <div class="control">
+                            <input class="input" type="text" name="dl_localidad">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección legal - Código postal</label>
+                        <div class="control">
+                            <input class="input" type="text" name="dl_cp">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección administrativa - Calle</label>
+                        <div class="control">
+                            <input class="input" type="text" name="da_calle">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección administrativa - Número</label>
+                        <div class="control">
+                            <input class="input" type="text" name="da_numero">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección administrativa - Localidad</label>
+                        <div class="control">
+                            <input class="input" type="text" name="da_localidad">
+                        </div>
+                    </div>
+                
+                    <div class="field">
+                        <label class="label">Dirección administrativa - Código postal</label>
+                        <div class="control">
+                            <input class="input" type="text" name="da_cp">
                         </div>
                     </div>
 

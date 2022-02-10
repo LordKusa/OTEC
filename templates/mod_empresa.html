@@ -79,7 +79,11 @@
                             <div class="select is-fullwidth">
                                 <select name="actividad_primaria">
                                     {% for actividad in actividades %}
-                                        <option value="{{actividad}}">{{actividad}}</option>
+                                        {% if actividad.lower() == empresa[7].lower() %}
+                                            <option value="{{actividad}}" selected="selected">{{actividad}}</option>
+                                        {% else %}
+                                            <option value="{{actividad}}">{{actividad}}</option>
+                                        {% endif %}
                                     {% endfor %}
                                 </select>
                             </div>
@@ -87,15 +91,109 @@
                     </div>
 
                     <div class="field">
-                        <label class="label">Actividad secundaria</label>
+                        <label class="label">Actividad secundaria uno</label>
                         <div class="control">
                             <div class="select is-fullwidth">
-                                <select name="actividad_secundaria">
+                                <select name="actividad_secundaria_uno">
                                     {% for actividad in actividades %}
-                                        <option value="{{actividad}}">{{actividad}}</option>
+                                        {% if actividad.lower() == empresa[8].lower() %}
+                                            <option value="{{actividad}}" selected="selected">{{actividad}}</option>
+                                        {% else %}
+                                            <option value="{{actividad}}">{{actividad}}</option>
+                                        {% endif %}
                                     {% endfor %}
                                 </select>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Actividad secundaria dos</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="actividad_secundaria_dos">
+                                    {% for actividad in actividades %}
+                                        {% if actividad.lower() == empresa[9].lower() %}
+                                            <option value="{{actividad}}" selected="selected">{{actividad}}</option>
+                                        {% else %}
+                                            <option value="{{actividad}}">{{actividad}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Actividad secundaria tres</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="actividad_secundaria_tres">
+                                    {% for actividad in actividades %}
+                                        {% if actividad.lower() == empresa[10].lower() %}
+                                            <option value="{{actividad}}" selected="selected">{{actividad}}</option>
+                                        {% else %}
+                                            <option value="{{actividad}}">{{actividad}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección legal - Calle</label>
+                        <div class="control">
+                            <input class="input" type="text" name="dl_calle" value={{empresa[11]}}>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección legal - Número</label>
+                        <div class="control">
+                            <input class="input" type="text" name="dl_numero" value={{empresa[12]}}>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección administrativa - Localidad</label>
+                        <div class="control">
+                            <input class="input" type="text" name="dl_localidad" value={{empresa[13]}}>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección legal - Código postal</label>
+                        <div class="control">
+                            <input class="input" type="text" name="dl_cp" value={{empresa[14]}}>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección administrativa - Calle</label>
+                        <div class="control">
+                            <input class="input" type="text" name="da_calle" value={{empresa[15]}}>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección administrativa - Número</label>
+                        <div class="control">
+                            <input class="input" type="text" name="da_numero" value={{empresa[16]}}>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Dirección administrativa - Localidad</label>
+                        <div class="control">
+                            <input class="input" type="text" name="da_localidad" value={{empresa[17]}}>
+                        </div>
+                    </div>
+                
+                    <div class="field">
+                        <label class="label">Dirección administrativa - Código postal</label>
+                        <div class="control">
+                            <input class="input" type="text" name="da_cp" value={{empresa[18]}}>
                         </div>
                     </div>
 
@@ -103,7 +201,7 @@
                         <label class="label">MiPyME local</label>
                         <div class="control">
                             <label class="radio">
-                                {% if empresa[9].lower() == 'si' %}
+                                {% if empresa[19].lower() == 'si' %}
                                     <input type="radio" name="mipyme_local" value="Si" checked="checked">
                                 {% else %}
                                     <input type="radio" name="mipyme_local" value="Si">
@@ -111,11 +209,11 @@
                                 Si
                             </label>
                             <label class="radio">
-                                {% if empresa[9].lower() != 'si' %}
+                                {% if empresa[19].lower() != 'si' %}
                                     <input type="radio" name="mipyme_local" value="No" checked="checked">
                                 {% else %}
                                     <input type="radio" name="mipyme_local" value="No">
-                                {% endif %}
+                                    {% endif %}
                                 No
                             </label>
                         </div>
@@ -134,16 +232,10 @@
                         </div>
                     </div>
 
-                    <div class="field">
+                    <div class="field mt-2">
                         <label class="label">Habilitación municipal</label>
                         <div class="control">
-                            <div class="select is-fullwidth">
-                                <select name="habilitacion_municipal">
-                                    {% for habilitacion in habilitaciones %}
-                                        <option value="{{habilitacion}}">{{habilitacion}}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
+                            <input class="input" type="text" name="habilitacion_municipal" value="{{empresa[21]}}">
                         </div>
                     </div>
 

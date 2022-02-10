@@ -13,7 +13,7 @@ class PlantaDAO:
             plantas = []
             for registro in registros:
                 planta = []
-                for i in range(25):
+                for i in range(17):
                     planta.append(registro[i])
                 plantas.append(planta)
             return plantas
@@ -28,7 +28,7 @@ class PlantaDAO:
                 empresas = []
                 for registro in registros:
                     empresa = []
-                    for i in range(25):
+                    for i in range(17):
                         empresa.append(registro[i])
                     empresas.append(empresa)
             else:

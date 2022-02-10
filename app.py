@@ -8,6 +8,10 @@ from dao.personas import PersonaDAO
 from mostrar_datos import *
 
 METHODS = ['GET', 'POST']
+TIPOS = ['Sociedades Comerciales', 'Sociedad colectiva', 'Sociedad en Comandita Simple', 'Sociedad de Capital e Industria', 
+         'Sociedad de Responsabilidad Limitada', 'Sociedad Anónima', 'Sociedad Anónima con Participación', 'Sociedad Anónima con Participación Estatal Mayoritaria', 
+         'Sociedad en Comandita por Acciones', 'Sociedad Unipersonal', 'Sociedades de constitución no regular', 'Sociedades de Hecho', 
+         'Sociedades Irregulares', 'Monotributo']
 
 app = Flask(__name__)
 app.secret_key = b'test'
@@ -52,7 +56,7 @@ def empresa():
     tipos = ['Sociedades Comerciales', 'Sociedad colectiva', 'Sociedad en Comandita Simple', 'Sociedad de Capital e Industria', 
              'Sociedad de Responsabilidad Limitada', 'Sociedad Anónima', 'Sociedad Anónima con Participación', 'Sociedad Anónima con Participación Estatal Mayoritaria', 
              'Sociedad en Comandita por Acciones', 'Sociedad Unipersonal', 'Sociedades de constitución no regular', 'Sociedades de Hecho', 
-             'Sociedades Irregulares']
+             'Sociedades Irregulares', 'Monotributo']
     actividades = []
     categorias = ['Micro', 'Pequeña', 'Mediana tramo 1', 'Mediana tramo 2']
     habilitaciones = ['Si', 'En trámite', 'Precaria', 'Definitiva', 
@@ -76,25 +80,43 @@ def empresa():
 
         EmpresaDAO.insertar(dic)
 
-    return render_template('empresa.html', mod=False, tipos=tipos, actividades=actividades, categorias=categorias, habilitaciones=habilitaciones)
+    return render_template('empresa.html', mod=False, tipos=TIPOS, actividades=actividades, categorias=categorias, habilitaciones=habilitaciones)
 
 @app.route('/modificar/empresa/<id>', methods=METHODS)
 def modificar_empresa(id):
     clae = ClaeDAO.seleccionar()
-    tipos = ['Sociedades Comerciales', 'Sociedad colectiva', 'Sociedad en Comandita Simple', 'Sociedad de Capital e Industria', 'Sociedad de Responsabilidad Limitada', 'Sociedad Anónima', 
-             'Sociedad Anónima con Participación', 'Sociedad Anónima con Participación Estatal Mayoritaria', 'Sociedad en Comandita por Acciones', 'Sociedad Unipersonal', 
-             'Sociedades de constitución no regular', 'Sociedad de Hecho', 'Sociedades Irregulares', 'Monotributo']
-    actividades = []
-    categorias = ['Micro', 'Pequeña', 'Mediana tramo 1', 'Mediana tramo 2']
+    tipos = ['Sociedades Comerciales', 'Sociedad colectiva', 'Sociedad en Comandita Simple', 'Sociedad de Capital e Industria',
+             'Sociedad de Responsabilidad Limitada', 'Sociedad Anónima', 'Sociedad Anónima con Participación', 'Sociedad Anónima con Participación Estatal Mayoritaria', 
+             'Sociedad en Comandita por Acciones', 'Sociedad Unipersonal', 'Sociedades de constitución no regular', 'Sociedad de Hecho', 
+             'Sociedades Irregulares', 'Monotributo']
+    actividades = ['Ninguna']
+    categorias = ['Sin definir', 'Micro', 'Pequeña', 'Mediana tramo 1', 'Mediana tramo 2']
     habilitaciones = ['Si', 'En trámite', 'Precaria', 'Definitiva', 'HSM', 'PUP', 'Otros']
+    clae_indice = []
+    clae_descripcion = []
+    clae_lista = [clae_indice, clae_descripcion]
 
     for i in clae:
-        actividades.append(i[1])
+        actividad = f'{i[0]} - {i[1]}'
+        actividades.append(actividad)
+        clae_indice.append(i[0])
+        clae_descripcion.append(i[1])
 
     empresa = list(EmpresaDAO.seleccionar_uno(('id_empresa', id))[0])
-    print(empresa[6])
+    print(empresa[11])
 
-    return render_template('mod_empresa.html', mod=True, tipos=tipos, actividades=actividades, categorias=categorias, habilitaciones=habilitaciones, empresa=empresa)
+    for i in range(7, 11):
+        try:
+            indice = clae_indice.index(empresa[i])
+            empresa[i] = f'{clae_indice[indice]} - {clae_descripcion[indice]}'
+        except:
+            print(f'error en {i}')
+
+    if request.method == 'POST':
+        dic = request.form.to_dict()
+        EmpresaDAO.actualizar(dic)
+
+    return render_template('mod_empresa.html', mod=True, tipos=TIPOS, actividades=actividades, categorias=categorias, habilitaciones=habilitaciones, empresa=empresa)
 
 @app.route('/planta', methods=METHODS)
 def planta():
@@ -206,4 +228,4 @@ def antes_de_cada_peticion():
         return redirect("/login")
 
 
-app.run(host='localhost', port=1234, debug=True)
+app.run(host='localhost', port=1234)
